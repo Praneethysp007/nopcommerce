@@ -18,9 +18,9 @@ pipeline {
         stage(build) {
             steps{
                 rtDotnetResolver(
-                id : "nopinstance" 
-                serverId : "nopcommerce"
-                repo : "nopcomm-nuget"
+                    id : "nopinstance" 
+                    serverId : "nopcommerce"
+                    repo : "nopcomm-nuget"
                 )
                 rtDotnetRun(
                     args : "build src/NopCommerce.sln",
