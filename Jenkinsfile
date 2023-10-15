@@ -16,7 +16,7 @@ pipeline {
 
         }
         stage(build) {
-            sh(script: 'dotnet build NopCommerce.sln')
+            sh(script: 'dotnet build src/NopCommerce.sln')
         }
 
         stage(Artifacts) {
