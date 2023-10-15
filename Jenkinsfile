@@ -1,6 +1,6 @@
 pipeline {
     agent{
-        label { 'JDK-17' }
+        label 'JDK-17' 
     }
 
     triggers{
