@@ -1,39 +1,45 @@
 pipeline {
     agent{
-        label { 'JDK-17' }
+        label 'JDK-17' 
     }
 
     triggers{
-        pollSCM ( * * * * * )
+        pollSCM('* * * * *')
     }
 
     stages{
         stage (vcs)  {
-            step {
+            steps {
                 git  url: 'https://github.com/Praneethysp007/nopcommerce.git', 
                      branch: 'develop'
             }
 
         }
         stage(build) {
-            rtDotnetResolver(
+            steps{
+                rtDotnetResolver(
                 id : "nopinstance" 
                 serverId : "nopcommerce"
                 repo : "nopcomm-nuget"
-            )
-            rtDotnetRun(
-                args : "build src/NopCommerce.sln",
-                resolverId : "nopinstance"
+                )
+                rtDotnetRun(
+                    args : "build src/NopCommerce.sln",
+                    resolverId : "nopinstance"
 
-            )
-            rtPublishBuildInfo(
-                serverId: 'nopcommerce'
-                
-            )
+                )
+                rtPublishBuildInfo(
+                    serverId: 'nopcommerce'
+                    
+                )
+            }
+            
         }
 
         stage(Artifacts) {
-            archiveArtifacts(artifacts: '**/*.dll')
+            steps{
+                archiveArtifacts(artifacts: '**/*.dll')
+            }
+            
         }
           
     }
